@@ -2,6 +2,8 @@ const asyncHandler = require('express-async-handler');
 const Doctor = require('../model/doctorSchema');
 const generateToken = require('../config/tokenGen');
 const Log = require('../model/logSchema');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const registerDoctor = asyncHandler(async (req,res)=>{
     const {name,ssfID,registrationID,mobile,adress,gender,speciality,arr} = req.body;
@@ -69,6 +71,7 @@ const authDoctor = asyncHandler(async (req,res)=>{
                 timeAvailable: doctor.timeAvailable,
                 token: generateToken(doctor._id),
                 logId:logReport._id,
+                port:process.env.PORT,
             })
         }
         else{

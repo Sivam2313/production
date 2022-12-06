@@ -2,7 +2,8 @@ const asyncHandler = require('express-async-handler');
 const Hw = require('../model/hwSchema');
 const generateToken = require('../config/tokenGen');
 const Log = require('../model/logSchema');
-
+const dotenv = require('dotenv');
+dotenv.config()
 const registerHw = asyncHandler(async (req,res)=>{
     const { name, userID, password } = req.body;
     if (!name || !userID || !password) {
@@ -74,7 +75,8 @@ const authHw = asyncHandler(async (req,res)=>{
                 userID: hw.userID,
                 password: hw.password,
                 token: generateToken(hw._id),
-                logId: logReport._id
+                logId: logReport._id,
+                port:process.env.PORT,
             })
         }
         else{
