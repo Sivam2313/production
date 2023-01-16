@@ -14,25 +14,28 @@ const fetch = asyncHandler(async(req,res)=>{
 })
 
 const add = asyncHandler(async(req,res)=>{
-    const {name} = req.body;
-    const isPresent = await Medicine.find({name:name})
-    var medicine
-    if(isPresent.length===0){
-        medicine = await Medicine.create({
-            name:name,
-            quantity:'0'
-        })
+    const {csvData} = req.body;
+    for(var i = 0;i<csvData.length;i++){
+        const med = {
+            name1: csvData[i][0],
+            name2: csvData[i][1],
+            quantity: csvData[i][2],
+            txt: csvData[i][3],
+        }
+        if(!med.name1){
+            continue;
+        }
+        const isPresent = await Medicine.find({name1:med.name1})
+        var medicine;
+        if(isPresent.length===0){
+            medicine = await Medicine.create(med)
+        }
+        else{
+            medicine = await Medicine.findOneAndUpdate({name1:med.name1},{quantity:med.quantity})
+        }
     }
-    else{
-        medicine = isPresent;
-    }
-    if(medicine){
-        const medicines = await Medicine.find({});
-        res.status(201).json(medicines);
-    }
-    else{
-        res.status(400).send('not Found');
-    }
+    const medicines = await Medicine.find({})
+    res.status(201).json(medicines)
 })
 
 module.exports = {changeNumber,fetch,add}

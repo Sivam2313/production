@@ -1,10 +1,16 @@
 const mongoose = require('mongoose');
 
 const medicineSchema = mongoose.Schema({
-    name:{
+    name1:{
+        type:String,
+    },
+    name2:{
         type:String,
     },
     quantity:{
+        type:String,
+    },
+    txt:{
         type:String,
     }
 },{

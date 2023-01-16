@@ -129,9 +129,8 @@ const appointedPatients = asyncHandler(async (req,res)=>{
 
 const setAppointedDate = asyncHandler(async (req,res)=>{
     const {date,id,doctor} = req.body;
-    const [day,month,year] = date.split('/');
-    const appointedDate = new Date(year,month - 1,day);
-    const patient = await Patient.updateOne({'patientData.ticketId':id},{appointedTime:appointedDate,doctor:doctor})
+    // const [day,month,year] = date.split('/');
+    const patient = await Patient.updateOne({'patientData.ticketId':id},{appointedTime:date,doctor:doctor})
     if(patient){
         const updated = await Patient.findOne({'patientData.ticketId':id})
         res.status(201).json(updated);

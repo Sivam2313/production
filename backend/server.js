@@ -1,11 +1,11 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const connectDB = require('./config/db');
+const connectDB = require('../backend/config/db');
 const adminRoutes = require('./routes/adminRoutes');
-const hwRoutes = require('./routes/hwRoutes');
+const hwRoutes = require('./Routes/hwRoutes');
 const doctorRoutes = require('./routes/doctorRoutes');
 const familyRoutes = require('./routes/familyRoutes');
-const patientRoutes = require('./routes/PatientRoutes');
+const patientRoutes = require('./routes/patientRoutes');
 const logRoutes = require('./routes/logRoutes');
 const prescriptionRoutes = require('./routes/prescriptionRoutes')
 const medicineRoutes = require('./routes/medicineRoutes');
@@ -24,7 +24,7 @@ const {Server} = require('socket.io');
 const server = http.createServer(app);
 const io = new Server(server,{
     cors:{
-        origin:"https://production-production-369f.up.railway.app/",
+        origin:"https://telemedicine-nitd.azurewebsites.net/",
     },
 })
 
